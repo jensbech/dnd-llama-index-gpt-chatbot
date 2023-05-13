@@ -1,0 +1,1 @@
+{"index_store/data": {"northbound_guard": {"__type__": "vector_store", "__data__": {"index_id": "northbound_guard", "summary": null, "nodes_dict": {"07585409-029f-4a73-a16f-29e807ddd1ee": "07585409-029f-4a73-a16f-29e807ddd1ee"}, "doc_id_dict": {"5dd9e062-6b09-430b-91c9-19f243551553": ["07585409-029f-4a73-a16f-29e807ddd1ee"]}, "embeddings_dict": {}}}}}

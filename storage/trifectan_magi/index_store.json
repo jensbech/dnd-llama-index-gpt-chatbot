@@ -1,0 +1,1 @@
+{"index_store/data": {"trifectan_magi": {"__type__": "vector_store", "__data__": {"index_id": "trifectan_magi", "summary": null, "nodes_dict": {"37eb2a3d-f110-4273-bd43-4c12e7e368e1": "37eb2a3d-f110-4273-bd43-4c12e7e368e1"}, "doc_id_dict": {"663b056d-281a-422b-b091-ae69d27b54a4": ["37eb2a3d-f110-4273-bd43-4c12e7e368e1"]}, "embeddings_dict": {}}}}}

@@ -1,0 +1,1 @@
+{"index_store/data": {"expedition_1_Vale_of_Blossoms": {"__type__": "vector_store", "__data__": {"index_id": "expedition_1_Vale_of_Blossoms", "summary": null, "nodes_dict": {"09cf378c-da00-44d9-9fba-a5fb51ea7844": "09cf378c-da00-44d9-9fba-a5fb51ea7844"}, "doc_id_dict": {"9a11a76b-128f-436d-a4dc-24480705ceac": ["09cf378c-da00-44d9-9fba-a5fb51ea7844"]}, "embeddings_dict": {}}}}}
