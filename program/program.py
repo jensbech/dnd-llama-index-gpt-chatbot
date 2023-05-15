@@ -25,7 +25,7 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 import discord
 from discord.ext import commands
 
-enable_logging()
+# enable_logging()
 
 with open("file_index.json") as f:
     file_index = json.load(f)
@@ -59,6 +59,7 @@ for file_name, metadata in file_index.items():
     storage_context.persist(persist_dir=f"./storage/{file_name}")
 
     index_summaries[file_name] = metadata["description"]
+    print(index_summaries)
 
 
 graph = ComposableGraph.from_indices(
@@ -129,7 +130,8 @@ async def ask(message, question: str):
         await message.reply(responseString)
     except Exception as e:
         await message.reply(
-            "Regrettably, I cannot offer an answer to your question since it does not appear to be relevant to the Lore of Kazar. If you suspect an error, kindly notify my Creator..."
+            "Regrettably, I cannot offer an answer to your question since it does not appear to be relevant to the Lore of Kazar. If you suspect an error, kindly notify my Creator... Error:"
+            + e
         )
 
 
@@ -139,10 +141,16 @@ async def on_message(message):
         return
     if bot.user in message.mentions:
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
-        prepromptquestinon = question
-        await ask(message, prepromptquestinon)
+        await ask(
+            message,
+            "First you will be shown the question you are to answer, then I'll talk about your personality."
+            + question
+            + " That was the question. This is your personality and how you will reply: You are a wise old Lexicon of Knowledge, in a fictional DND world name Kazar. It's players can query you about events and lore in the world. Your answers will be clear and consise. Answer in a great pompous accent as if you were Elrond from Lord of The Rings.",
+        )
 
     await bot.process_commands(message)
 
 
 bot.run(DISCORD_TOKEN)
+
+# TODO: Debug reasons why more complex queries are throwing errors.
