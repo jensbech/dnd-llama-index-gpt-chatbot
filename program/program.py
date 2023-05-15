@@ -39,6 +39,8 @@ service_context = ServiceContext.from_defaults(
     llm_predictor=llm_predictor_chatgpt, chunk_size_limit=1024
 )
 
+#
+
 documents = {}
 vector_indices = {}
 index_summaries = {}
