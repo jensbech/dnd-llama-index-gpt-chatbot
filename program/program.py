@@ -1,11 +1,7 @@
-import logging
-import sys
-import os
-import discord
-from dotenv import load_dotenv
 import json
 from llama_index import (
     GPTKeywordTableIndex,
+    GPTListIndex,
     GPTVectorStoreIndex,
     SimpleDirectoryReader,
     LLMPredictor,
@@ -19,27 +15,25 @@ from llama_index.indices.query.query_transform.base import DecomposeQueryTransfo
 from discord.ext import commands
 from llama_index.tools.query_engine import QueryEngineTool
 from llama_index.query_engine.router_query_engine import RouterQueryEngine
-from llama_index.selectors.llm_selectors import LLMSingleSelector
+from llama_index.selectors.llm_selectors import LLMSingleSelector, LLMMultiSelector
+from config import OPENAI_API_KEY, DISCORD_TOKEN, folder_path, threadCount
+from config import DISCORD_TOKEN
+from console_logging import enable_logging
+from langchain.chains.conversation.memory import ConversationBufferMemory
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+import discord
+from discord.ext import commands
 
-
-os.environ["NUMEXPR_MAX_THREADS"] = "16"
-
-# logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-# logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
-# logger = logging.getLogger()
-# logger.disabled = False
-
-load_dotenv()
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
-os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
-folder_path = "data"
+# enable_logging()
 
 with open("file_index.json") as f:
     file_index = json.load(f)
 
 llm_predictor_chatgpt = LLMPredictor(
-    llm=ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    llm=ChatOpenAI(
+        temperature=0.7,
+        model_name="gpt-3.5-turbo",
+    )
 )
 service_context = ServiceContext.from_defaults(
     llm_predictor=llm_predictor_chatgpt, chunk_size_limit=1024
@@ -67,14 +61,13 @@ for file_name, metadata in file_index.items():
 
 
 graph = ComposableGraph.from_indices(
-    GPTKeywordTableIndex,
+    GPTListIndex,
     [index for _, index in vector_indices.items()],
     [summary for _, summary in index_summaries.items()],
     max_keywords_per_chunk=50,
 )
 
 root_index = graph.get_index(graph.root_id)
-
 root_index.set_index_id("compare_contrast")
 
 decompose_transform = DecomposeQueryTransform(llm_predictor_chatgpt, verbose=True)
@@ -90,7 +83,6 @@ for index in vector_indices.values():
     custom_query_engines[index.index_id] = query_engine
 
 custom_query_engines[graph.root_id] = graph.root_index.as_query_engine(
-    retriever_mode="simple",
     response_mode="tree_summarize",
     service_context=service_context,
     verbose=True,
@@ -115,7 +107,9 @@ graph_tool = QueryEngineTool.from_defaults(
 query_engine_tools.append(graph_tool)
 
 router_query_engine = RouterQueryEngine(
-    selector=LLMSingleSelector.from_defaults(service_context=service_context),
+    selector=LLMSingleSelector.from_defaults(
+        service_context=service_context,
+    ),
     query_engine_tools=query_engine_tools,
 )
 
@@ -142,7 +136,6 @@ async def ask(message, question: str):
 async def on_message(message):
     if message.author.bot:
         return
-
     if bot.user in message.mentions:
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
         prepromptquestinon = question
