@@ -7,6 +7,7 @@ from llama_index import (
     LLMPredictor,
     ServiceContext,
     StorageContext,
+    SummaryPrompt,
 )
 from langchain.chat_models import ChatOpenAI
 from llama_index.indices.composability import ComposableGraph
@@ -38,8 +39,6 @@ llm_predictor_chatgpt = LLMPredictor(
 service_context = ServiceContext.from_defaults(
     llm_predictor=llm_predictor_chatgpt, chunk_size_limit=1024
 )
-
-#
 
 documents = {}
 vector_indices = {}
