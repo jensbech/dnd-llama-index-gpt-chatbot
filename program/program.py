@@ -24,7 +24,7 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 import discord
 from discord.ext import commands
 
-# enable_logging()
+enable_logging()
 
 with open("file_index.json") as f:
     file_index = json.load(f)
