@@ -100,7 +100,7 @@ for index_summary in index_summaries:
     vector_tool = QueryEngineTool.from_defaults(query_engine, description=summary)
     query_engine_tools.append(vector_tool)
 
-graph_description = "This tool contains articles about a fictional Dungeons and Dragons 5E universe called Kazar."
+graph_description = "This tool contains articles about a fictional Dungeons and Dragons 5E universe called Kazar, including characters, locations, events and lore."
 graph_tool = QueryEngineTool.from_defaults(
     graph_query_engine, description=graph_description
 )
