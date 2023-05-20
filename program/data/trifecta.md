@@ -1,5 +1,4 @@
-Trifecta Line Company
-
+# Trifecta Line Company
 A government run company established by the Trifecta themselves in the year 14 PT, the Trifecta Line Company manages everything related to the Steam Singers in Kazar.
 
 This includes, but is not limited to, the following:
@@ -16,3 +15,4 @@ While the Trifecta themselves are the formal heads of the organisation, there ex
 One of their chief pursuits is ensuring no rival nation understand the nature of their technology, which in turn has led to Steam Singer design becoming increasingly complex and obtuse - the newest Singers a mass og tangled metal and steel.
 
 An entire regiment of the Northbound Guard is assigned to the Trifecta Line Company, known as Officers of the Line.
+

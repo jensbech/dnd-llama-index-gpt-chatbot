@@ -24,6 +24,9 @@ from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 import discord
 from discord.ext import commands
+from pathlib import Path
+from llama_index import download_loader
+
 
 # enable_logging()
 
@@ -42,11 +45,13 @@ service_context = ServiceContext.from_defaults(
 
 documents = {}
 vector_indices = {}
+
+MarkdownReader = download_loader("MarkdownReader")
+loader = MarkdownReader()
 index_summaries = {}
 for file_name, metadata in file_index.items():
-    documents[file_name] = SimpleDirectoryReader(
-        input_files=[f"{folder_path}/{file_name}.txt"]
-    ).load_data()
+    documents[file_name] = loader.load_data(file=Path(f"{folder_path}/{file_name}.md"))
+
     storage_context = StorageContext.from_defaults()
 
     vector_indices[file_name] = GPTVectorStoreIndex.from_documents(
@@ -58,7 +63,9 @@ for file_name, metadata in file_index.items():
 
     storage_context.persist(persist_dir=f"./storage/{file_name}")
 
-    index_summaries[file_name] = metadata["description"]
+    index_summaries[file_name] = (
+        "This index contains information about " + metadata["description"]
+    )
     print(index_summaries)
 
 
@@ -71,6 +78,11 @@ graph = ComposableGraph.from_indices(
 
 root_index = graph.get_index(graph.root_id)
 root_index.set_index_id("compare_contrast")
+root_summary = (
+    "This index contains articles about "
+    + metadata["description"]
+    + "Use it to contrast and compare"
+)
 
 decompose_transform = DecomposeQueryTransform(llm_predictor_chatgpt, verbose=True)
 
@@ -102,7 +114,7 @@ for index_summary in index_summaries:
     vector_tool = QueryEngineTool.from_defaults(query_engine, description=summary)
     query_engine_tools.append(vector_tool)
 
-graph_description = "This tool contains articles about a fictional Dungeons and Dragons 5E universe called Kazar, including characters, locations, events and lore."
+graph_description = "This tool contains information about a fictional Dungeons and Dragons 5E universe called Kazar, including characters, locations, events and lore."
 graph_tool = QueryEngineTool.from_defaults(
     graph_query_engine, description=graph_description
 )
