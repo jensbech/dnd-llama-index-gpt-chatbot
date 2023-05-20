@@ -39,8 +39,6 @@ all_docs = []
 for file in files:
     file_docs = loader.load_data(file=Path(f"./data/{file}.md"))
     # insert file metadata into each doc
-    print("DOCS")
-    print(file_docs)
     for d in file_docs:
         d.extra_info = {"file": file}
     doc_set[file] = file_docs
