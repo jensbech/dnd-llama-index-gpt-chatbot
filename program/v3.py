@@ -1,4 +1,5 @@
-from config import OPENAI_API_KEY, DISCORD_TOKEN, folder_path, threadCount
+import discord
+from discord.ext import commands
 from llama_index import (
     download_loader,
     GPTVectorStoreIndex,
@@ -26,6 +27,8 @@ from llama_index.langchain_helpers.agents import (
 )
 from llama_index.indices.query.query_transform.base import DecomposeQueryTransform
 from llama_index.query_engine.transform_query_engine import TransformQueryEngine
+from config import OPENAI_API_KEY, DISCORD_TOKEN, folder_path, threadCount
+
 
 files = ["characters"]  # Specify your .md files here
 MarkdownReader = download_loader("MarkdownReader", refresh_cache=True)
@@ -36,6 +39,8 @@ all_docs = []
 for file in files:
     file_docs = loader.load_data(file=Path(f"./data/{file}.md"))
     # insert file metadata into each doc
+    print("DOCS")
+    print(file_docs)
     for d in file_docs:
         d.extra_info = {"file": file}
     doc_set[file] = file_docs
@@ -65,7 +70,7 @@ for file in files:
 index_summaries = [f"{file} index" for file in files]
 
 # define an LLMPredictor set number of output tokens
-llm_predictor = LLMPredictor(llm=OpenAI(temperature=0, max_tokens=512))
+llm_predictor = LLMPredictor(llm=ChatOpenAI(temperature=0, max_tokens=512))
 service_context = ServiceContext.from_defaults(llm_predictor=llm_predictor)
 storage_context = StorageContext.from_defaults()
 
@@ -108,32 +113,38 @@ custom_query_engines[graph.root_id] = graph.root_index.as_query_engine(
     verbose=True,
 )
 
-# tool config
-graph_config = IndexToolConfig(
-    query_engine=custom_query_engines[graph.root_id],
-    name=f"Graph Index",
-    description="useful for when you want to answer queries that require analyzing multiple Markdown files.",
-    tool_kwargs={"return_direct": True},
+# Create the router query engine for handling Discord bot commands
+router_query_engine = TransformQueryEngine(
+    graph.root_index.as_query_engine(),
+    query_transform=decompose_transform,
+    transform_extra_info={"index_summary": "Graph Index"},
 )
 
-# define toolkit
-index_configs = []
-for file in files:
-    query_engine = custom_query_engines[index_set[file].index_id]
-    tool_config = IndexToolConfig(
-        query_engine=query_engine,
-        name=f"Vector Index {file}",
-        description=f"useful for when you want to answer queries about the {file} Markdown file",
-        tool_kwargs={"return_direct": True},
-    )
-    index_configs.append(tool_config)
-
-toolkit = LlamaToolkit(
-    index_configs=index_configs + [graph_config],
-)
+# Create the LlamaToolkit for the Discord bot
+toolkit = LlamaToolkit(index_configs=[], router_query_engine=router_query_engine)
 
 memory = ConversationBufferMemory(memory_key="chat_history")
-llm = OpenAI(temperature=0)
+llm = ChatOpenAI(temperature=0, max_tokens=512, model="gpt-3.5-turbo")
 agent_chain = create_llama_chat_agent(toolkit, llm, memory=memory, verbose=True)
 
-agent_chain.run(input="what is my name?")
+intents = discord.Intents.default()
+intents.typing = True
+intents.presences = False
+bot = commands.Bot(command_prefix=lambda _, __: [], intents=intents)
+
+bot.remove_command("help")
+
+
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+    if bot.user in message.mentions:
+        question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
+        response = agent_chain.run(input=question)
+        await message.reply(response)
+
+    await bot.process_commands(message)
+
+
+bot.run(DISCORD_TOKEN)

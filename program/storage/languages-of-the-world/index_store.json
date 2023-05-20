@@ -1,1 +1,0 @@
-{"index_store/data": {"languages-of-the-world": {"__type__": "vector_store", "__data__": {"index_id": "languages-of-the-world", "summary": null, "nodes_dict": {"d171e899-455a-48af-9157-d1e8d3c621ac": "d171e899-455a-48af-9157-d1e8d3c621ac"}, "doc_id_dict": {"80201a23-1644-4663-afa2-202ddae20765": ["d171e899-455a-48af-9157-d1e8d3c621ac"]}, "embeddings_dict": {}}}}}

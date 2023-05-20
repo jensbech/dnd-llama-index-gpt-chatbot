@@ -1,1 +1,0 @@
-{"index_store/data": {"officers_of_the_line": {"__type__": "vector_store", "__data__": {"index_id": "officers_of_the_line", "summary": null, "nodes_dict": {"b4c627ca-52b7-4814-ba8e-b25c3747c80e": "b4c627ca-52b7-4814-ba8e-b25c3747c80e"}, "doc_id_dict": {"33247fa5-de87-48da-821c-c2b7128cb3be": ["b4c627ca-52b7-4814-ba8e-b25c3747c80e"]}, "embeddings_dict": {}}}}}

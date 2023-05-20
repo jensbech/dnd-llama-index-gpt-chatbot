@@ -1,1 +1,0 @@
-{"index_store/data": {"expedition_sites": {"__type__": "vector_store", "__data__": {"index_id": "expedition_sites", "summary": null, "nodes_dict": {"0708eee3-091c-46b7-a55d-e1c368910d5e": "0708eee3-091c-46b7-a55d-e1c368910d5e"}, "doc_id_dict": {"64aec9d5-2e0b-4637-b7ac-fcad3c6a4097": ["0708eee3-091c-46b7-a55d-e1c368910d5e"]}, "embeddings_dict": {}}}}}
