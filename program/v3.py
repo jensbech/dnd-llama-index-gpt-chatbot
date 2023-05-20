@@ -83,15 +83,15 @@ graph = ComposableGraph.from_indices(
 )
 root_id = graph.root_id
 
-# [optional] save to disk
-storage_context.persist(persist_dir=f"./storage/root")
+# # [optional] save to disk
+# storage_context.persist(persist_dir=f"./storage/root")
 
-# [optional] load from disk, so you don't need to build graph from scratch
-graph = load_graph_from_storage(
-    root_id=root_id,
-    service_context=service_context,
-    storage_context=storage_context,
-)
+# # [optional] load from disk, so you don't need to build graph from scratch
+# graph = load_graph_from_storage(
+#     root_id=root_id,
+#     service_context=service_context,
+#     storage_context=storage_context,
+# )
 
 # define a decompose transform
 decompose_transform = DecomposeQueryTransform(llm_predictor, verbose=True)
