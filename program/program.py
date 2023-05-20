@@ -154,4 +154,5 @@ async def on_message(message):
 bot.run(DISCORD_TOKEN)
 
 # TODO: Debug reasons why more complex queries are throwing errors.
-# TODO: Why does it not hit the right indices?
+# TODO: Why does it not hit the right indices? Should I have more specific index descriptions?
+# TODO: Does properly hit two indices when necessary? Should test that!
