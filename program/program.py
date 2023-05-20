@@ -76,14 +76,6 @@ graph = ComposableGraph.from_indices(
     max_keywords_per_chunk=50,
 )
 
-root_index = graph.get_index(graph.root_id)
-root_index.set_index_id("compare_contrast")
-root_summary = (
-    "This index contains articles about "
-    + metadata["description"]
-    + "Use it to contrast and compare"
-)
-
 decompose_transform = DecomposeQueryTransform(llm_predictor_chatgpt, verbose=True)
 
 custom_query_engines = {}
@@ -167,4 +159,4 @@ bot.run(DISCORD_TOKEN)
 
 # TODO: Debug reasons why more complex queries are throwing errors.
 # TODO: Why does it not hit the right indices? Should I have more specific index descriptions?
-# TODO: Does properly hit two indices when necessary? Should test that!
+# TODO: It only selects one index at  a time.
