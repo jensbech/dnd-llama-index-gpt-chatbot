@@ -27,18 +27,24 @@ from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
 
+from llama_index.langchain_helpers.agents import (
+    LlamaToolkit,
+    create_llama_chat_agent,
+    IndexToolConfig,
+)
+
 
 # enable_logging()
 
 with open("file_index.json") as f:
     file_index = json.load(f)
 
-llm_predictor_chatgpt = LLMPredictor(
-    llm=ChatOpenAI(
-        temperature=0.7,
-        model_name="gpt-3.5-turbo",
-    )
+llm = llm = ChatOpenAI(
+    temperature=0.7,
+    model_name="gpt-3.5-turbo",
 )
+
+llm_predictor_chatgpt = LLMPredictor(llm=llm)
 service_context = ServiceContext.from_defaults(
     llm_predictor=llm_predictor_chatgpt, chunk_size_limit=1024
 )
@@ -119,6 +125,11 @@ router_query_engine = RouterQueryEngine(
     query_engine_tools=query_engine_tools,
 )
 
+toolkit = LlamaToolkit(index_configs=[], router_query_engine=router_query_engine)
+memory = ConversationBufferMemory(memory_key="chat_history")
+agent_chain = create_llama_chat_agent(toolkit, llm, memory=memory, verbose=True)
+
+
 intents = discord.Intents.default()
 intents.typing = True
 intents.presences = False
@@ -145,12 +156,14 @@ async def on_message(message):
         return
     if bot.user in message.mentions:
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
-        await ask(
-            message,
-            "First you will be shown the question you are to answer, then I'll talk about your personality."
-            + question
-            + " That was the question. This is your personality and how you will reply: You are a wise old Lexicon of Knowledge, in a fictional DND world name Kazar. It's players can query you about events and lore in the world. Your answers will be clear and consise. Answer in a great pompous accent as if you were Elrond from Lord of The Rings.",
-        )
+        response = agent_chain.run(input=question)
+        await ask(message.reply(response))
+        # await ask(
+        #     message,
+        #     "First you will be shown the question you are to answer, then I'll talk about your personality."
+        #     + question
+        #     + " That was the question. This is your personality and how you will reply: You are a wise old Lexicon of Knowledge, in a fictional DND world name Kazar. It's players can query you about events and lore in the world. Your answers will be clear and consise. Answer in a great pompous accent as if you were Elrond from Lord of The Rings.",
+        # )
 
     await bot.process_commands(message)
 
