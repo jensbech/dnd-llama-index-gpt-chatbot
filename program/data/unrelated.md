@@ -1,0 +1,1 @@
+There is no data or anything to answer about the real world. In fact, the bot will refuse to answer questions about this.
