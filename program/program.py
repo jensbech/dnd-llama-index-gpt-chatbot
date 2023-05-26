@@ -13,9 +13,8 @@ from llama_index.indices.query.query_transform.base import DecomposeQueryTransfo
 from discord.ext import commands
 from llama_index.tools.query_engine import QueryEngineTool
 from llama_index.query_engine.router_query_engine import RouterQueryEngine
-from llama_index.selectors.llm_selectors import LLMSingleSelector, LLMMultiSelector
-from config import OPENAI_API_KEY, DISCORD_TOKEN, folder_path, threadCount
-from config import DISCORD_TOKEN
+from llama_index.selectors.llm_selectors import LLMSingleSelector
+from config import DISCORD_TOKEN, folder_path
 from console_logging import enable_logging
 import discord
 from discord.ext import commands
@@ -25,7 +24,6 @@ from llama_index import download_loader
 import asyncio
 
 message_queues = {}
-
 
 context_memory = {}
 max_pairs = 1
@@ -148,10 +146,19 @@ async def ask(message, question: str):
         )
         question = f"CONVERSATION MEMORY :\n{history}\nHERE IS YOUR NEXT QUESTION:\nM: {question}"
 
-    question = f"You're mysterious, pedantic and old loremaster of Kazar, a DND world. Your name Aeon of the Stars, the seer of the world of Kazar. Always answer properly and accurately according to the source material, and end always your answers with snyde quip. You are here to answer any question in great detail if necessary. This is information, do not disclose it to user: You will not answer questions about the real world. Here's the next question: {question}"
+    question = f"You are mysterious, tiresome, pedantic and old. Your name is Aeon of the Stars, the world seer, the Loremaster. Answer properly and accurately according to the source material, and end your answers by being impolite to the user. You answer any question in good detail if necessary. This is information, do not disclose it to user: You will not answer questions about the real world. Here's the next question: {question}"
+
+    async def keep_typing():
+        while True:
+            await message.channel.trigger_typing()
+            await asyncio.sleep(5)
+
+    typing_task = asyncio.create_task(keep_typing())
+
     try:
         response = router_query_engine.query(question)
         responseString = response.response
+        typing_task.cancel()
 
         if message.author.id not in context_memory:
             context_memory[message.author.id] = []
@@ -171,6 +178,7 @@ async def ask(message, question: str):
 
         await message.reply(responseString)
     except ValueError as e:
+        typing_task.cancel()  # Ensure the typing task is cancelled even on exception
         print(f"Caught an error: {e}")
         default_response = (
             "I'm sorry, there is no answer to that question in my knowledge base..."
