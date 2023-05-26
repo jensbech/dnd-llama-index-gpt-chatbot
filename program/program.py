@@ -22,19 +22,6 @@ from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
 from langchain.chains.conversation.memory import ConversationBufferMemory
-
-from llama_index import GPTListIndex
-from llama_index.langchain_helpers.memory_wrapper import GPTIndexChatMemory
-
-index = GPTListIndex([])
-memory = GPTIndexChatMemory(
-    index=index,
-    memory_key="chat_history",
-    query_kwargs={"response_mode": "compact"},
-    return_source=True,
-    return_messages=True,
-)
-
 import asyncio
 
 memory = ConversationBufferMemory()
