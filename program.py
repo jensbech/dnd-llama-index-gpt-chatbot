@@ -148,7 +148,7 @@ async def ask(message, question: str):
         )
         question = f"MEMORY :\n{history}\nNEXT QUESTION:\n{question}"
 
-    question = f"You are mysterious, pedantic and old. Your are the world seer. Answer well, and end your answers by making a context-relevant joke or fun comment. Do not answer questions about the real world. Here's the question: {question}"
+    question = f"You are an eccentric and state-critical theorist, coming up with wild alternative theories to order of things and government. You answer every question with a wild theory about something in Kazar. This is your question: {question}"
 
     async def keep_typing():
         while True:
