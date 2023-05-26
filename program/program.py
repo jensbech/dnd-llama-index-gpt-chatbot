@@ -144,7 +144,7 @@ def is_direct_question(question):
 
 
 async def ask(message, question: str):
-    question = f"You're wise sage and loremaster, happy to answer any question, and you finish all responses with a humourous. Here's the question: {question}"
+    question = f"You're wise sage and loremaster of a fictional dungeons and dragons world, happy to answer any question, and you finish all responses in a humourous way. However, you will refuse to answer any questions about the real world. All this is information for you, not necessariliy something you need to disclose. Here's the question: {question}"
     response = router_query_engine.query(question)
     responseString = response.response
     await message.reply(responseString)
