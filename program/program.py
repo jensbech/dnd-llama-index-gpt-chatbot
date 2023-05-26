@@ -21,8 +21,12 @@ import discord
 from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
+from langchain.chains.conversation.memory import ConversationBufferMemory
+
 
 import asyncio
+
+memory = ConversationBufferMemory()
 
 questions_queue = asyncio.Queue()
 
@@ -179,7 +183,7 @@ async def on_message(message):
     if bot.user in message.mentions:
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
         print("Answering question: ", question)
-        async with message.channel.typing():  # Trigger typing status
+        async with message.channel.typing():
             await questions_queue.put((message, question))
             await bot.process_commands(message)
     else:
