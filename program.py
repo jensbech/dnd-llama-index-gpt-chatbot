@@ -17,15 +17,15 @@ from llama_index.selectors.llm_selectors import LLMSingleSelector
 from config import DISCORD_TOKEN, folder_path
 from console_logging import enable_logging
 import discord
-from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
 
 import asyncio
 
-message_queues = {}
-
 enable_logging()
+
+MarkdownReader = download_loader("MarkdownReader")
+loader = MarkdownReader()
 
 with open("file_index.json") as file:
     file_index = json.load(file)
@@ -147,6 +147,7 @@ async def ask(message, question: str):
     loop = asyncio.get_event_loop()
 
     try:
+        # Use loop.run_in_executor() to run blocking operation in a separate thread
         response = await loop.run_in_executor(None, router_query_engine.query, question)
         responseString = response.response
         typing_task.cancel()
@@ -166,25 +167,15 @@ async def ask(message, question: str):
         await message.reply(default_response)
 
 
-async def process_message_queue(user_id):
-    while True:
-        message = await message_queues[user_id].get()
-        question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
-        print("Answering question: ", question)
-        async with message.channel.typing():
-            await ask(message, question)
-
-
 @bot.event
 async def on_message(message):
     if message.author.bot:
         return
     if bot.user in message.mentions:
-        if message.author.id not in message_queues:
-            message_queues[message.author.id] = asyncio.Queue()
-            bot.loop.create_task(process_message_queue(message.author.id))
-
-        await message_queues[message.author.id].put(message)
+        async with message.channel.typing():
+            question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
+            print("Answering question: ", question)
+            await ask(message, question)
     else:
         await bot.process_commands(message)
 
