@@ -23,7 +23,7 @@ from pathlib import Path
 from llama_index import download_loader
 import asyncio
 
-print("Starting...")
+print("\033[32mStarting...\033[0m")
 
 questions_queue = asyncio.Queue()
 
@@ -32,7 +32,7 @@ MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
 
 
-# enable_logging()
+enable_logging()
 
 with open("file_index.json") as file:
     file_index = json.load(file)
@@ -55,7 +55,7 @@ data_dir = Path(folder_path)
 # for md_file in data_dir.glob("**/*.md"):
 # print(md_file) # this prints data file names
 
-print("Loading files...")
+print("\033[32mLoading files...\033[0m")
 documents = {}
 for md_file in Path(folder_path).glob("**/*.md"):
     file_name = md_file.stem  # Get the file name without the extension
@@ -78,9 +78,9 @@ for md_file in Path(folder_path).glob("**/*.md"):
             "This index contains information about " + metadata["description"]
         )
         # print(index_summaries[file_name]) # this prints the description of the index
-print("Loaded all files!")
+print("\033[32mLoaded all files!\033[0m")
 
-print("Building graph and other things...")
+print("\033[32mBuilding graph and other things...\033[0m")
 
 graph = ComposableGraph.from_indices(
     GPTTreeIndex,
@@ -131,9 +131,11 @@ router_query_engine = RouterQueryEngine(
     ),
     query_engine_tools=query_engine_tools,
 )
-print("Finished building graph and other things!")
+print("\033[32mFinished building graph and other things!\033[0m")
 
-print("Starting bot...")
+
+print("\033[32mStarting bot...\033[0m")
+
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -193,5 +195,5 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
-print("Bot ready to go!")
+print("\033[32mBot ready!\033[0m")
 bot.run(DISCORD_TOKEN)
