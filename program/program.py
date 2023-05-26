@@ -21,13 +21,9 @@ import discord
 from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
-import asyncio
 
 context_memory = {}
 max_pairs = 2
-
-
-questions_queue = asyncio.Queue()
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
@@ -199,7 +195,6 @@ async def on_message(message):
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
         print("Answering question: ", question)
         async with message.channel.typing():
-            await questions_queue.put((message, question))
             await bot.process_commands(message)
     else:
         await bot.process_commands(message)
