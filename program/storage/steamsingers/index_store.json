@@ -1,0 +1,1 @@
+{"index_store/data": {"steamsingers": {"__type__": "vector_store", "__data__": {"index_id": "steamsingers", "summary": null, "nodes_dict": {"1dfad364-d0a9-4d03-afcc-23c35198d86e": "1dfad364-d0a9-4d03-afcc-23c35198d86e"}, "doc_id_dict": {"a3c4d6af-33a3-47f5-887b-d824ee091fc9": ["1dfad364-d0a9-4d03-afcc-23c35198d86e"]}, "embeddings_dict": {}}}}}

@@ -1,0 +1,1 @@
+{"index_store/data": {"puff": {"__type__": "vector_store", "__data__": {"index_id": "puff", "summary": null, "nodes_dict": {"abc7af5f-bf00-40ce-b781-f2832afed7a6": "abc7af5f-bf00-40ce-b781-f2832afed7a6"}, "doc_id_dict": {"51e4ca6b-9f35-4c95-978d-248428fa845a": ["abc7af5f-bf00-40ce-b781-f2832afed7a6"]}, "embeddings_dict": {}}}}}

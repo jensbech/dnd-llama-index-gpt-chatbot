@@ -1,0 +1,1 @@
+{"index_store/data": {"efrael": {"__type__": "vector_store", "__data__": {"index_id": "efrael", "summary": null, "nodes_dict": {"388bc00c-68b2-4fc6-a5ce-0139d47cfb58": "388bc00c-68b2-4fc6-a5ce-0139d47cfb58"}, "doc_id_dict": {"764f73a8-80c6-42f9-bee2-65ebec949a47": ["388bc00c-68b2-4fc6-a5ce-0139d47cfb58"]}, "embeddings_dict": {}}}}}

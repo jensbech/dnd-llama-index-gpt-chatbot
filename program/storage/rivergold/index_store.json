@@ -1,0 +1,1 @@
+{"index_store/data": {"rivergold": {"__type__": "vector_store", "__data__": {"index_id": "rivergold", "summary": null, "nodes_dict": {"7f7bb408-9676-4312-862f-d9d78d0c4859": "7f7bb408-9676-4312-862f-d9d78d0c4859"}, "doc_id_dict": {"8a6216a6-bc04-4627-aa36-833f078844cc": ["7f7bb408-9676-4312-862f-d9d78d0c4859"]}, "embeddings_dict": {}}}}}

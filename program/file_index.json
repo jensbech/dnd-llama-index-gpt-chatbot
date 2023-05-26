@@ -83,6 +83,12 @@
   "exp14": {
     "description": "Expedition / Chronicle 14, titled 'An audience with the wizard'"
   },
+  "exp15": {
+    "description": "Expedition / Chronicle 15, titled 'Sinkborg/Castle sinks up and sinkborg sinks down again'"
+  },
+  "exp16": {
+    "description": "Expedition / Chronicle 16, titled 'An outbreak in Bucklehill'"
+  },
   "settingprimer": {
     "description": "Setting primer: Calendar, playable races, playable classes, magic, cosmetics, experience points, and rule exclusions"
   },
@@ -147,7 +153,7 @@
     "description": "Leader: King Efrael"
   },
   "bourgoul": {
-    "description": "Leader: Bourgoul the Wilderness"
+    "description": "Leader: Bourgoul the Wide"
   },
   "morgana": {
     "description": "Leader: Morgana de Floc"
