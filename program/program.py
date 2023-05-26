@@ -21,6 +21,10 @@ import discord
 from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
+import asyncio
+
+questions_queue = asyncio.Queue()
+
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
@@ -150,13 +154,25 @@ async def ask(message, question: str):
     await message.reply(responseString)
 
 
+async def process_questions():
+    while True:
+        message, question = await questions_queue.get()
+        await ask(message, question)
+        questions_queue.task_done()
+
+
+@bot.event
+async def on_ready():
+    bot.loop.create_task(process_questions())
+
+
 @bot.event
 async def on_message(message):
     if message.author.bot:
         return
     if bot.user in message.mentions:
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
-        await ask(message, question)
+        await questions_queue.put((message, question))
 
     await bot.process_commands(message)
 
