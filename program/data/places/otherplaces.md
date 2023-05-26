@@ -2,8 +2,6 @@ Regions and places in Kazar
 
 The following tome contains information regarding the geographical, cultural and political climate in the many places and regions connected by the Line.
 
-
-
 Arc-upon-High, the seat of the Trifecta, lies to the south of Soskni in the Gulf of Kazar. A mountainous castle of glass which stretches out onto the sea and into the sky in the far south. The three dominant races of the world are united under their rule.
 
 Gulf of Kazar
@@ -34,7 +32,6 @@ Groves of Yonder
 Ancient domain of the Wood-elves, a rich forest which blankets the mainland. Divided in two by the Line, and the settlements that follow it. Despite a considerable population in that central part of the region, much of the forest is left to its own. This due to an ancient agreement between King Efrael and the woodland spirits - The Yonderli, who begrudgingly accepted the Line, and the industry that followed, in their realm.
 
 Fyrrum
-A Steam Singer stops at a station near Fyrrum
 As the great, green woodlands give way to sloping hills, the mountains of Fyrrum rise to meet travellers onboard the Line. Home to the dwarves, who burrow through its roots like mice through a chunk of cheese. A constant war zone, though politically very hush-hush, the different dwarven dukes constantly fight it out in the Underdark, waging proxy wars via hired mercenaries, such as hobgoblins and half-orcs of their own creation. The mines less plentiful than they tell the outside world, the demand enormous from the ever-growing capitol in the south, while the wealth of the mountain is increasingly redirected towards internal warfare. Enormous debts are owed to the River of Gold in Soskni. Most dwarven dukes are bankrupt, desperately hoping to wipe out their rivals in time to repay their debts.
 
 Belching Wastes

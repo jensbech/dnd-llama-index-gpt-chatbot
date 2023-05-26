@@ -2,7 +2,6 @@ Expedition sites in Stormfyord
 
 Stormfyord is a place of mystery, and still in the process of being mapped out. Here follows a list of main places of interest, that serve as destinations for various expeditions by the crew of Stone-Upon-Hill.
 
-
 Contents
 1	The Vale of Blossoms
 2	The Wizard's Castle
@@ -12,6 +11,7 @@ Contents
 6	Desert Disaster
 7	Black Marrow
 The Vale of Blossoms
+
 Hidden behind a purple barrier of light lies a strange, otherworldly valley, home to The Blossom Queen. Its inhabitants appear to be a creation of her spurned psyche, after being rejected by an unknown lover. Currently dangerous, as her rage has become the dominant emotion.
 
 The Wizard's Castle

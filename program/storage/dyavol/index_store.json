@@ -1,0 +1,1 @@
+{"index_store/data": {"dyavol": {"__type__": "vector_store", "__data__": {"index_id": "dyavol", "summary": null, "nodes_dict": {"1b83bf29-1b74-4c64-91a4-5da998533439": "1b83bf29-1b74-4c64-91a4-5da998533439"}, "doc_id_dict": {"8c0bcb56-157d-45f1-9577-40d71866000c": ["1b83bf29-1b74-4c64-91a4-5da998533439"]}, "embeddings_dict": {}}}}}

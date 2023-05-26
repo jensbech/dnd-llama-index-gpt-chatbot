@@ -1,0 +1,1 @@
+{"index_store/data": {"settingprimer": {"__type__": "vector_store", "__data__": {"index_id": "settingprimer", "summary": null, "nodes_dict": {"37598baa-7894-4836-8546-03991c171b7d": "37598baa-7894-4836-8546-03991c171b7d"}, "doc_id_dict": {"fa9749e4-ef3a-4d15-895a-ad2ead5901c7": ["37598baa-7894-4836-8546-03991c171b7d"]}, "embeddings_dict": {}}}}}

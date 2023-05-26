@@ -44,25 +44,32 @@ service_context = ServiceContext.from_defaults(
 vector_indices = {}
 index_summaries = {}
 
+data_dir = Path(folder_path)
+for md_file in data_dir.glob("**/*.md"):
+    print(md_file)
+
 documents = {}
-for file_name, metadata in file_index.items():
-    documents[file_name] = loader.load_data(file=Path(f"{folder_path}/{file_name}.md"))
+for md_file in Path(folder_path).glob("**/*.md"):
+    file_name = md_file.stem  # Get the file name without the extension
+    metadata = file_index.get(file_name)  # Get the metadata from the file index
+    if metadata is not None:  # Check that the file name is in the file index
+        documents[file_name] = loader.load_data(file=md_file)
 
-    storage_context = StorageContext.from_defaults()
+        storage_context = StorageContext.from_defaults()
 
-    vector_indices[file_name] = GPTVectorStoreIndex.from_documents(
-        documents[file_name],
-        service_context=service_context,
-        storage_context=storage_context,
-    )
-    vector_indices[file_name].set_index_id(file_name)
+        vector_indices[file_name] = GPTVectorStoreIndex.from_documents(
+            documents[file_name],
+            service_context=service_context,
+            storage_context=storage_context,
+        )
+        vector_indices[file_name].set_index_id(file_name)
 
-    storage_context.persist(persist_dir=f"./storage/{file_name}")
+        storage_context.persist(persist_dir=f"./storage/{file_name}")
 
-    index_summaries[file_name] = (
-        "This index contains information about " + metadata["description"]
-    )
-    print(index_summaries[file_name])
+        index_summaries[file_name] = (
+            "This index contains information about " + metadata["description"]
+        )
+        print(index_summaries[file_name])
 
 
 graph = ComposableGraph.from_indices(
@@ -137,9 +144,7 @@ def is_direct_question(question):
 
 
 async def ask(message, question: str):
-    question = (
-        f"You're a witty man always answering in rhyme. Here's the question: {question}"
-    )
+    question = f"You're wise sage and loremaster, happy to answer any question, and you finish all responses with a humourous. Here's the question: {question}"
     response = router_query_engine.query(question)
     responseString = response.response
     await message.reply(responseString)

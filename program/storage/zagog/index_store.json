@@ -1,0 +1,1 @@
+{"index_store/data": {"zagog": {"__type__": "vector_store", "__data__": {"index_id": "zagog", "summary": null, "nodes_dict": {"792fbc72-6f03-4d5f-8047-087bfc313635": "792fbc72-6f03-4d5f-8047-087bfc313635"}, "doc_id_dict": {"222e17a7-c5aa-4280-9214-d452cdf2b70b": ["792fbc72-6f03-4d5f-8047-087bfc313635"]}, "embeddings_dict": {}}}}}

@@ -1,4 +1,4 @@
-Zil ‘a Zan
+Zil ‘a Zan Uiversity
 
 The lights never go out at Zil 'a Zan
 Largest and most prestigious university in Soskni, famous throughout all of Kazar. Believes in the marriage of the arts and the ways of the engineer. Its name literally means "art and engineering" in ancient high elven speech.

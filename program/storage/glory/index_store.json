@@ -1,0 +1,1 @@
+{"index_store/data": {"glory": {"__type__": "vector_store", "__data__": {"index_id": "glory", "summary": null, "nodes_dict": {"2bd617b9-ae3f-4c42-b92b-6949642cf40a": "2bd617b9-ae3f-4c42-b92b-6949642cf40a"}, "doc_id_dict": {"00397286-f882-4f77-86e3-0da6d6ce01ff": ["2bd617b9-ae3f-4c42-b92b-6949642cf40a"]}, "embeddings_dict": {}}}}}

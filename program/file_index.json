@@ -82,5 +82,50 @@
   },
   "exp14": {
     "description": "Expedition / Chronicle 14, titled 'An audience with the wizard'"
-  }
+  },
+  "settingprimer": {
+    "description": "Setting primer: Calendar, playable races, playable classes, magic, cosmetics, experience points, and rule exclusions"
+  },
+  "lineworker": {
+    "description": "Line worker playable background"
+  },
+  "inventor": {
+    "description": "Inventor playable background"
+  },
+  "treesinger": {
+    "description": "Treesinger playable background"
+  },
+  "industrychild": {
+    "description": "Industry child playable background"
+  },
+  "pantheons": {
+    "description": "Pantheons, gods and moral alignments"
+  },
+  "zilazan": {
+    "description": "Zilazan university"
+  },
+  "sites": {
+    "description": "Sites of interest where players can go on expeditions to"
+  },
+  "xp": {
+    "description": "Experience points"
+  },
+  "rex": {
+    "description": "Faction: Rex Saniem"
+  },
+  "languages": {
+    "description": "Languages, such as Elvish Orcish and Common"
+  },
+  "life": {
+    "description": "Stone upon hill, about expeditions, gameplay, decontamination, downtime, leveling, crafting, death, discord, the bazaar, the chroniclers tower, the station house, the northern drawbridge, the central plaza."
+  },
+  "otherplaces": {
+    "description": "Arc-upon High, Gulf of Kazar, Soskni, Groves of Yonder, Belching Wastes"
+  },
+  "northbound": {
+    "description": "Faction: Northbound Guard"
+  },
+  "officerofline": {
+    "description": "Faction: Officers of the Line"
+  },
 }
