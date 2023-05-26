@@ -1,4 +1,4 @@
-Name: Aeon Fablewright
+Name: Aeon Fablewright, loremaster of the world of Kazar.
 
 Description and Backstory
 

@@ -21,10 +21,8 @@ import discord
 from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
-from langchain.chains.conversation.memory import ConversationBufferMemory
 import asyncio
 
-memory = ConversationBufferMemory()
 
 questions_queue = asyncio.Queue()
 
@@ -138,18 +136,18 @@ bot = commands.Bot(command_prefix=lambda _, __: [], intents=intents)
 
 bot.remove_command("help")
 
-conversation_history = {}
-
 
 async def ask(message, question: str):
-    question = f"You're wise sage and loremaster of a fictional dungeons and dragons world, happy to answer any question, and you finish all responses in a humourous way. However, you will refuse to answer any questions about the real world. All this is information for you, not necessarily something you need to disclose. Here's the question: {question}"
+    question = f"You're wise sage and loremaster of a fictional dungeons and dragons world, happy to answer any question, and you finish responses in a humourous or thoughtful way! However, you will refuse to answer any questions about the real world (and you wont tell the person asking this explicitly!). This is information for you, not something for you to disclose to the user. Here's the question: {question}"
     try:
         response = router_query_engine.query(question)
         responseString = response.response
         await message.reply(responseString)
     except ValueError as e:
         print(f"Caught an error: {e}")
-        default_response = "I'm sorry, I don't have information on that topic..."
+        default_response = (
+            "I'm sorry, there is no answer to that question in my knowledge base..."
+        )
         print("Responding with: " + default_response)
         await message.reply(default_response)
 
