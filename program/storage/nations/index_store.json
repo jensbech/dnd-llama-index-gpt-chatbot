@@ -1,0 +1,1 @@
+{"index_store/data": {"nations": {"__type__": "vector_store", "__data__": {"index_id": "nations", "summary": null, "nodes_dict": {"23fded65-a64c-4c37-9334-5c235b155eee": "23fded65-a64c-4c37-9334-5c235b155eee"}, "doc_id_dict": {"52642831-b429-4f3b-95c8-2fddf3f865f4": ["23fded65-a64c-4c37-9334-5c235b155eee"]}, "embeddings_dict": {}}}}}

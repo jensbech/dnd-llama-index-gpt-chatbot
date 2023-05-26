@@ -1,0 +1,1 @@
+{"index_store/data": {"timian": {"__type__": "vector_store", "__data__": {"index_id": "timian", "summary": null, "nodes_dict": {"b1919ec6-9d68-4781-8846-261ddbd0ead4": "b1919ec6-9d68-4781-8846-261ddbd0ead4"}, "doc_id_dict": {"f4529eb6-a171-43e9-9868-59ae0f19a4ba": ["b1919ec6-9d68-4781-8846-261ddbd0ead4"]}, "embeddings_dict": {}}}}}

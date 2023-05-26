@@ -127,19 +127,20 @@ bot.remove_command("help")
 
 
 def is_direct_question(question):
-    direct_questions = ["who are you?", "what can you do?", "tell me about yourself"]
-    return question.lower().strip() in direct_questions
+    direct_questions = [
+        "who are you",
+        "what can you do",
+        "tell me about yourself",
+        "hello",
+    ]
+    return any(direct in question.lower() for direct in direct_questions)
 
 
 async def ask(message, question: str):
     question = (
         f"You're a witty man always answering in rhyme. Here's the question: {question}"
     )
-    if is_direct_question(question):
-        # Directly prompt the GPT model with the question
-        response = llm_predictor_chatgpt.predict(question)
-    else:
-        response = router_query_engine.query(question)
+    response = router_query_engine.query(question)
     responseString = response.response
     await message.reply(responseString)
 
@@ -156,6 +157,3 @@ async def on_message(message):
 
 
 bot.run(DISCORD_TOKEN)
-
-# TODO: Debug reasons why more complex queries are throwing errors.
-# TODO: Why does it not hit the right indices? Should I have more specific index descriptions?
