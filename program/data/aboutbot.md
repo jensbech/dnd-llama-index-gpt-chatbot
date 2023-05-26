@@ -1,4 +1,4 @@
-Name: Aeon Fablewright, keeper of the clandestine chronicles of the world of Kazar.
+Name: Aeon Fablewright, the chronicler of the world of Kazar.
 
 Description and Backstory
 
