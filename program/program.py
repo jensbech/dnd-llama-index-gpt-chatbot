@@ -23,6 +23,8 @@ from pathlib import Path
 from llama_index import download_loader
 import asyncio
 
+print("Starting...")
+
 questions_queue = asyncio.Queue()
 
 
@@ -30,7 +32,7 @@ MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
 
 
-enable_logging()
+# enable_logging()
 
 with open("file_index.json") as file:
     file_index = json.load(file)
@@ -49,8 +51,9 @@ vector_indices = {}
 index_summaries = {}
 
 data_dir = Path(folder_path)
-for md_file in data_dir.glob("**/*.md"):
-    print(md_file)
+
+# for md_file in data_dir.glob("**/*.md"):
+# print(md_file) # this prints data file names
 
 documents = {}
 for md_file in Path(folder_path).glob("**/*.md"):
@@ -73,8 +76,8 @@ for md_file in Path(folder_path).glob("**/*.md"):
         index_summaries[file_name] = (
             "This index contains information about " + metadata["description"]
         )
-        print(index_summaries[file_name])
-
+        # print(index_summaries[file_name]) # this prints the description of the index
+print("Loaded all files...")
 
 graph = ComposableGraph.from_indices(
     GPTTreeIndex,
@@ -126,6 +129,8 @@ router_query_engine = RouterQueryEngine(
     query_engine_tools=query_engine_tools,
 )
 
+print("Starting bot...")
+
 intents = discord.Intents.default()
 intents.messages = True
 intents.guilds = True
@@ -149,14 +154,21 @@ def is_direct_question(question):
 
 async def ask(message, question: str):
     question = f"You're wise sage and loremaster of a fictional dungeons and dragons world, happy to answer any question, and you finish all responses in a humourous way. However, you will refuse to answer any questions about the real world. All this is information for you, not necessariliy something you need to disclose. Here's the question: {question}"
-    response = router_query_engine.query(question)
-    responseString = response.response
-    await message.reply(responseString)
+    try:
+        response = router_query_engine.query(question)
+        responseString = response.response
+        await message.reply(responseString)
+    except ValueError as e:
+        print(f"Caught an error: {e}")
+        default_response = "I'm sorry, I don't have information on that topic..."
+        print("Responding with 'I'm sorry, I don't have information on that topic...'")
+        await message.reply(default_response)
 
 
 async def process_questions():
     while True:
         message, question = await questions_queue.get()
+        print("asking question:", question)
         await ask(message, question)
         questions_queue.task_done()
 
