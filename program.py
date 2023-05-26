@@ -17,21 +17,15 @@ from llama_index.selectors.llm_selectors import LLMSingleSelector
 from config import DISCORD_TOKEN, folder_path
 from console_logging import enable_logging
 import discord
-from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
 
 import asyncio
 
-message_queues = {}
-
-context_memory = {}
-max_pairs = 0
+enable_logging()
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
-
-enable_logging()
 
 with open("file_index.json") as file:
     file_index = json.load(file)
@@ -141,13 +135,6 @@ bot.remove_command("help")
 import concurrent.futures
 
 async def ask(message, question: str):
-    context = context_memory.get(message.author.id)
-    if context:
-        history = "\n".join(
-            [f"{pair['user_message']}\n{pair['bot_reply']}" for pair in context]
-        )
-        question = f"MEMORY :\n{history}\nNEXT QUESTION:\n{question}"
-
     question = f"You are mysterious, pedantic and old. Your are the world seer. Answer well, and end your answers by making a context-relevant joke or fun comment. Do not answer questions about the real world. Here's the question: {question}"
 
     async def keep_typing():
@@ -165,18 +152,6 @@ async def ask(message, question: str):
         responseString = response.response
         typing_task.cancel()
 
-        if message.author.id not in context_memory:
-            context_memory[message.author.id] = []
-        context_memory[message.author.id].append(
-            {"user_message": message.content, "bot_reply": responseString}
-        )
-
-        print("CURRENT CONTEXT MEMORY: ", context_memory[message.author.id])
-        if len(context_memory[message.author.id]) > max_pairs:
-            context_memory[message.author.id] = context_memory[message.author.id][
-                -max_pairs:
-            ]
-
         responseString = (
             responseString[3:] if responseString.startswith("A: ") else responseString
         )
@@ -192,27 +167,15 @@ async def ask(message, question: str):
         await message.reply(default_response)
 
 
-async def process_message_queue(user_id):
-    while True:
-        message = await message_queues[user_id].get()
-        question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
-        print("Answering question: ", question)
-        async with message.channel.typing():
-            await ask(message, question)
-
-
 @bot.event
 async def on_message(message):
     if message.author.bot:
         return
     if bot.user in message.mentions:
-        # Add message to user's queue
-        if message.author.id not in message_queues:
-            message_queues[message.author.id] = asyncio.Queue()
-            # Start a task to process messages in the queue
-            bot.loop.create_task(process_message_queue(message.author.id))
-
-        await message_queues[message.author.id].put(message)
+        async with message.channel.typing():
+            question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
+            print("Answering question: ", question)
+            await ask(message, question)
     else:
         await bot.process_commands(message)
 
