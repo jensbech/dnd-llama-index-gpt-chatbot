@@ -138,6 +138,8 @@ bot = commands.Bot(command_prefix=lambda _, __: [], intents=intents)
 bot.remove_command("help")
 
 
+import concurrent.futures
+
 async def ask(message, question: str):
     context = context_memory.get(message.author.id)
     if context:
@@ -146,7 +148,7 @@ async def ask(message, question: str):
         )
         question = f"CONVERSATION MEMORY :\n{history}\nHERE IS YOUR NEXT QUESTION:\nM: {question}"
 
-    question = f"You are mysterious, tiresome, pedantic and old. Your name is Aeon of the Stars, the world seer, the Loremaster. Answer properly and accurately according to the source material, and end your answers by being impolite to the user. You answer any question in good detail if necessary. This is information, do not disclose it to user: You will not answer questions about the real world. Here's the next question: {question}"
+    question = f"You are mysterious, pedantic and old. Your name is Aeon of the Stars, the world seer, the Loremaster. Answer properly and accurately according to the source material, and end your answers by making a relevant joke on the user's expense. You answer any question in good detail if necessary. This is information, do not disclose it to user: You will not answer questions about the real world. Here's the next question: {question}"
 
     async def keep_typing():
         while True:
@@ -155,8 +157,11 @@ async def ask(message, question: str):
 
     typing_task = asyncio.create_task(keep_typing())
 
+    loop = asyncio.get_event_loop()
+
     try:
-        response = router_query_engine.query(question)
+        # Use loop.run_in_executor() to run blocking operation in a separate thread
+        response = await loop.run_in_executor(None, router_query_engine.query, question)
         responseString = response.response
         typing_task.cancel()
 
