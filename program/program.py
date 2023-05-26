@@ -1,13 +1,10 @@
 import json
 from llama_index import (
-    GPTKeywordTableIndex,
-    GPTListIndex,
+    GPTTreeIndex,
     GPTVectorStoreIndex,
-    SimpleDirectoryReader,
     LLMPredictor,
     ServiceContext,
     StorageContext,
-    SummaryPrompt,
 )
 from langchain.chat_models import ChatOpenAI
 from llama_index.indices.composability import ComposableGraph
@@ -20,35 +17,34 @@ from llama_index.selectors.llm_selectors import LLMSingleSelector, LLMMultiSelec
 from config import OPENAI_API_KEY, DISCORD_TOKEN, folder_path, threadCount
 from config import DISCORD_TOKEN
 from console_logging import enable_logging
-from langchain.chains.conversation.memory import ConversationBufferMemory
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 import discord
 from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
 
+MarkdownReader = download_loader("MarkdownReader")
+loader = MarkdownReader()
 
-# enable_logging()
 
-with open("file_index.json") as f:
-    file_index = json.load(f)
+enable_logging()
 
-llm_predictor_chatgpt = LLMPredictor(
-    llm=ChatOpenAI(
-        temperature=0.7,
-        model_name="gpt-3.5-turbo",
-    )
+with open("file_index.json") as file:
+    file_index = json.load(file)
+
+llm = ChatOpenAI(
+    temperature=0.7,
+    model_name="gpt-3.5-turbo",
 )
+llm_predictor_chatgpt = LLMPredictor(llm)
+
 service_context = ServiceContext.from_defaults(
     llm_predictor=llm_predictor_chatgpt, chunk_size_limit=1024
 )
 
-documents = {}
 vector_indices = {}
-
-MarkdownReader = download_loader("MarkdownReader")
-loader = MarkdownReader()
 index_summaries = {}
+
+documents = {}
 for file_name, metadata in file_index.items():
     documents[file_name] = loader.load_data(file=Path(f"{folder_path}/{file_name}.md"))
 
@@ -66,11 +62,11 @@ for file_name, metadata in file_index.items():
     index_summaries[file_name] = (
         "This index contains information about " + metadata["description"]
     )
-    print(index_summaries)
+    print(index_summaries[file_name])
 
 
 graph = ComposableGraph.from_indices(
-    GPTListIndex,
+    GPTTreeIndex,
     [index for _, index in vector_indices.items()],
     [summary for _, summary in index_summaries.items()],
     max_keywords_per_chunk=50,
@@ -120,6 +116,9 @@ router_query_engine = RouterQueryEngine(
 )
 
 intents = discord.Intents.default()
+intents.messages = True
+intents.guilds = True
+intents.message_content = True
 intents.typing = True
 intents.presences = False
 bot = commands.Bot(command_prefix=lambda _, __: [], intents=intents)
@@ -127,16 +126,22 @@ bot = commands.Bot(command_prefix=lambda _, __: [], intents=intents)
 bot.remove_command("help")
 
 
+def is_direct_question(question):
+    direct_questions = ["who are you?", "what can you do?", "tell me about yourself"]
+    return question.lower().strip() in direct_questions
+
+
 async def ask(message, question: str):
-    try:
+    question = (
+        f"You're a witty man always answering in rhyme. Here's the question: {question}"
+    )
+    if is_direct_question(question):
+        # Directly prompt the GPT model with the question
+        response = llm_predictor_chatgpt.predict(question)
+    else:
         response = router_query_engine.query(question)
-        responseString = response.response
-        await message.reply(responseString)
-    except Exception as e:
-        await message.reply(
-            "Regrettably, I cannot offer an answer to your question since it does not appear to be relevant to the Lore of Kazar. If you suspect an error, kindly notify my Creator... Error:"
-            + e
-        )
+    responseString = response.response
+    await message.reply(responseString)
 
 
 @bot.event
@@ -145,12 +150,7 @@ async def on_message(message):
         return
     if bot.user in message.mentions:
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
-        await ask(
-            message,
-            "First you will be shown the question you are to answer, then I'll talk about your personality."
-            + question
-            + " That was the question. This is your personality and how you will reply: You are a wise old Lexicon of Knowledge, in a fictional DND world name Kazar. It's players can query you about events and lore in the world. Your answers will be clear and consise. Answer in a great pompous accent as if you were Elrond from Lord of The Rings.",
-        )
+        await ask(message, question)
 
     await bot.process_commands(message)
 
@@ -159,4 +159,3 @@ bot.run(DISCORD_TOKEN)
 
 # TODO: Debug reasons why more complex queries are throwing errors.
 # TODO: Why does it not hit the right indices? Should I have more specific index descriptions?
-# TODO: It only selects one index at  a time.
