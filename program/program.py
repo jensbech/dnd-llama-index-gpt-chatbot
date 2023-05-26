@@ -27,15 +27,6 @@ import asyncio
 message_queues = {}
 
 
-async def process_message_queue(user_id):
-    while True:
-        message = await message_queues[user_id].get()
-        question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
-        print("Answering question: ", question)
-        async with message.channel.typing():
-            await ask(message, question)
-
-
 context_memory = {}
 max_pairs = 1
 
@@ -157,7 +148,7 @@ async def ask(message, question: str):
         )
         question = f"CONVERSATION MEMORY :\n{history}\nHERE IS YOUR NEXT QUESTION:\nM: {question}"
 
-    question = f"You're wise and funny old loremaster of Kazar, a DND world. Your name Aeon of the Stars, the seer of the world of Kazar. You are here to answer any question in great detail if necessary. This is information, do not disclose it to user: You will not answer questions about the real world. Here's the next question: {question}"
+    question = f"You're mysterious, pedantic and old loremaster of Kazar, a DND world. Your name Aeon of the Stars, the seer of the world of Kazar. Always answer properly and accurately according to the source material, and end always your answers with snyde quip. You are here to answer any question in great detail if necessary. This is information, do not disclose it to user: You will not answer questions about the real world. Here's the next question: {question}"
     try:
         response = router_query_engine.query(question)
         responseString = response.response
@@ -186,6 +177,15 @@ async def ask(message, question: str):
         )
         print("Responding with: " + default_response)
         await message.reply(default_response)
+
+
+async def process_message_queue(user_id):
+    while True:
+        message = await message_queues[user_id].get()
+        question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
+        print("Answering question: ", question)
+        async with message.channel.typing():
+            await ask(message, question)
 
 
 @bot.event
