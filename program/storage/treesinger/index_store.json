@@ -1,0 +1,1 @@
+{"index_store/data": {"treesinger": {"__type__": "vector_store", "__data__": {"index_id": "treesinger", "summary": null, "nodes_dict": {"5e2bda6c-d71f-4204-95a5-3222f5a9aeb8": "5e2bda6c-d71f-4204-95a5-3222f5a9aeb8"}, "doc_id_dict": {"6064da44-61c5-484a-8757-b013792bb138": ["5e2bda6c-d71f-4204-95a5-3222f5a9aeb8"]}, "embeddings_dict": {}}}}}

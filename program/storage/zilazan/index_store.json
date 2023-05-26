@@ -1,0 +1,1 @@
+{"index_store/data": {"zilazan": {"__type__": "vector_store", "__data__": {"index_id": "zilazan", "summary": null, "nodes_dict": {"afee06f6-6edb-435a-9e40-6354c7fbd7e7": "afee06f6-6edb-435a-9e40-6354c7fbd7e7"}, "doc_id_dict": {"3ba450c0-a103-454f-be8b-45d51d751b85": ["afee06f6-6edb-435a-9e40-6354c7fbd7e7"]}, "embeddings_dict": {}}}}}

@@ -1,0 +1,1 @@
+{"index_store/data": {"lineworker": {"__type__": "vector_store", "__data__": {"index_id": "lineworker", "summary": null, "nodes_dict": {"458c8558-31d2-4e1d-93e1-945e8fa68b7e": "458c8558-31d2-4e1d-93e1-945e8fa68b7e"}, "doc_id_dict": {"7b255b02-81f7-408f-b6f8-b5ee0422f389": ["458c8558-31d2-4e1d-93e1-945e8fa68b7e"]}, "embeddings_dict": {}}}}}

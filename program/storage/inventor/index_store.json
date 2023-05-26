@@ -1,0 +1,1 @@
+{"index_store/data": {"inventor": {"__type__": "vector_store", "__data__": {"index_id": "inventor", "summary": null, "nodes_dict": {"f482efd3-8a15-4946-aabf-8b39fa74a7d9": "f482efd3-8a15-4946-aabf-8b39fa74a7d9"}, "doc_id_dict": {"9c0d5ab2-de94-4890-8783-9b76461ad6c4": ["f482efd3-8a15-4946-aabf-8b39fa74a7d9"]}, "embeddings_dict": {}}}}}

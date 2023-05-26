@@ -1,0 +1,1 @@
+Puff is the trickstery footstool who's in charge of Quen Carellon's wizard castle while the latter is indisposed. The learned disagree as to whether Puff is stupid, or a brilliant mastermind. After the other living furniture of the castle was brutally murdered, his only friend left in the world is Carpet, who's really more like a dog than a person.

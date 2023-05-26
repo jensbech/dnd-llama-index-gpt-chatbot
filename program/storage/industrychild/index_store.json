@@ -1,0 +1,1 @@
+{"index_store/data": {"industrychild": {"__type__": "vector_store", "__data__": {"index_id": "industrychild", "summary": null, "nodes_dict": {"f6f5b32c-dbe7-4083-afab-f6b5892888d2": "f6f5b32c-dbe7-4083-afab-f6b5892888d2"}, "doc_id_dict": {"e2383024-3e33-41f2-a8ba-5f439c0b40bb": ["f6f5b32c-dbe7-4083-afab-f6b5892888d2"]}, "embeddings_dict": {}}}}}

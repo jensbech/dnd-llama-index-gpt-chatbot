@@ -1,0 +1,1 @@
+{"index_store/data": {"xp": {"__type__": "vector_store", "__data__": {"index_id": "xp", "summary": null, "nodes_dict": {"2942c9cc-e530-4223-af9f-8e82bfe2b11d": "2942c9cc-e530-4223-af9f-8e82bfe2b11d"}, "doc_id_dict": {"265b221e-99a3-4edb-a4bf-04fafdb6cba5": ["2942c9cc-e530-4223-af9f-8e82bfe2b11d"]}, "embeddings_dict": {}}}}}

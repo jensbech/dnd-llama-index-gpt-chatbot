@@ -1,0 +1,1 @@
+{"index_store/data": {"officerofline": {"__type__": "vector_store", "__data__": {"index_id": "officerofline", "summary": null, "nodes_dict": {"06047e4d-3753-4df6-a67d-062ceb922ceb": "06047e4d-3753-4df6-a67d-062ceb922ceb"}, "doc_id_dict": {"33508df0-db3c-4a7c-baa2-a800e79c93fe": ["06047e4d-3753-4df6-a67d-062ceb922ceb"]}, "embeddings_dict": {}}}}}
