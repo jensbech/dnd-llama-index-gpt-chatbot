@@ -26,7 +26,7 @@ import asyncio
 message_queues = {}
 
 context_memory = {}
-max_pairs = 1
+max_pairs = 0
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
@@ -148,7 +148,7 @@ async def ask(message, question: str):
         )
         question = f"CONVERSATION MEMORY :\n{history}\nHERE IS YOUR NEXT QUESTION:\nM: {question}"
 
-    question = f"You are mysterious, pedantic and old. Your name is Aeon of the Stars, the world seer, the Loremaster. Answer properly and accurately according to the source material, and end your answers by making a relevant joke on the user's expense. You answer any question in good detail if necessary. This is information, do not disclose it to user: You will not answer questions about the real world. Here's the next question: {question}"
+    question = f"You are mysterious, pedantic and old. Your name is Aeon of the Stars, the world seer, the Loremaster. Answer accurately, and end your answers by making a joke on the user's expense. You will not answer questions about the real world. Here's the next question: {question}"
 
     async def keep_typing():
         while True:
