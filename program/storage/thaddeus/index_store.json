@@ -1,1 +1,0 @@
-{"index_store/data": {"thaddeus": {"__type__": "vector_store", "__data__": {"index_id": "thaddeus", "summary": null, "nodes_dict": {"8d6cb7d3-f4f7-464b-97fd-dc93dd6fbb41": "8d6cb7d3-f4f7-464b-97fd-dc93dd6fbb41"}, "doc_id_dict": {"714942a0-cfcf-495b-9779-7e5256b91211": ["8d6cb7d3-f4f7-464b-97fd-dc93dd6fbb41"]}, "embeddings_dict": {}}}}}

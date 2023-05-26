@@ -1,1 +1,0 @@
-{"index_store/data": {"timou": {"__type__": "vector_store", "__data__": {"index_id": "timou", "summary": null, "nodes_dict": {"a181c8b3-457b-4f31-8527-232f0fb055f6": "a181c8b3-457b-4f31-8527-232f0fb055f6"}, "doc_id_dict": {"1c6e6ae8-2484-4937-9b2d-d75e58596837": ["a181c8b3-457b-4f31-8527-232f0fb055f6"]}, "embeddings_dict": {}}}}}

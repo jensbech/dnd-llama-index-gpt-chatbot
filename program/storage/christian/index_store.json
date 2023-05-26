@@ -1,1 +1,0 @@
-{"index_store/data": {"christian": {"__type__": "vector_store", "__data__": {"index_id": "christian", "summary": null, "nodes_dict": {"780e05c3-dc13-4d3a-9ba1-4461a6d18027": "780e05c3-dc13-4d3a-9ba1-4461a6d18027"}, "doc_id_dict": {"c47c0c8c-974b-4dac-8d8d-98f98ffbc4df": ["780e05c3-dc13-4d3a-9ba1-4461a6d18027"]}, "embeddings_dict": {}}}}}

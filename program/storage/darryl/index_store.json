@@ -1,1 +1,0 @@
-{"index_store/data": {"darryl": {"__type__": "vector_store", "__data__": {"index_id": "darryl", "summary": null, "nodes_dict": {"ef2be953-3187-4030-bcbb-e5235f301b40": "ef2be953-3187-4030-bcbb-e5235f301b40"}, "doc_id_dict": {"d1ccb616-f090-41ca-96a5-9ac49b2a1f62": ["ef2be953-3187-4030-bcbb-e5235f301b40"]}, "embeddings_dict": {}}}}}

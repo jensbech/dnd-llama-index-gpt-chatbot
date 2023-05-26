@@ -1,1 +1,0 @@
-{"index_store/data": {"spike": {"__type__": "vector_store", "__data__": {"index_id": "spike", "summary": null, "nodes_dict": {"3969f7be-1161-4f59-a8cb-288469720130": "3969f7be-1161-4f59-a8cb-288469720130"}, "doc_id_dict": {"ec0c3bba-6d8e-4fe1-ab14-1b6cf4fcd3bf": ["3969f7be-1161-4f59-a8cb-288469720130"]}, "embeddings_dict": {}}}}}

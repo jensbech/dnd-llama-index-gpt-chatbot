@@ -1,1 +1,0 @@
-{"index_store/data": {"trifecta": {"__type__": "vector_store", "__data__": {"index_id": "trifecta", "summary": null, "nodes_dict": {"f54d5302-aef2-4017-84b0-cd049a2edc4c": "f54d5302-aef2-4017-84b0-cd049a2edc4c"}, "doc_id_dict": {"62e4a20e-83fb-47d8-a7d8-82e6b8e4bd44": ["f54d5302-aef2-4017-84b0-cd049a2edc4c"]}, "embeddings_dict": {}}}}}

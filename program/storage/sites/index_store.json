@@ -1,1 +1,0 @@
-{"index_store/data": {"sites": {"__type__": "vector_store", "__data__": {"index_id": "sites", "summary": null, "nodes_dict": {"56088f64-be44-41c9-a48f-690ef186f2d4": "56088f64-be44-41c9-a48f-690ef186f2d4"}, "doc_id_dict": {"723641d9-1027-4dcb-8153-547a756ce35c": ["56088f64-be44-41c9-a48f-690ef186f2d4"]}, "embeddings_dict": {}}}}}

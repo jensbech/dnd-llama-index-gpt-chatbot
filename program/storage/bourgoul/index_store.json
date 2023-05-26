@@ -1,1 +1,0 @@
-{"index_store/data": {"bourgoul": {"__type__": "vector_store", "__data__": {"index_id": "bourgoul", "summary": null, "nodes_dict": {"1dd50c14-a79d-48fd-8b93-eeceae5333c9": "1dd50c14-a79d-48fd-8b93-eeceae5333c9"}, "doc_id_dict": {"2bc107a6-8e9b-4e8f-9443-53be1ee097ab": ["1dd50c14-a79d-48fd-8b93-eeceae5333c9"]}, "embeddings_dict": {}}}}}

@@ -1,1 +1,0 @@
-{"index_store/data": {"sasha": {"__type__": "vector_store", "__data__": {"index_id": "sasha", "summary": null, "nodes_dict": {"059a0e12-9b69-4471-9773-23e85625dcea": "059a0e12-9b69-4471-9773-23e85625dcea"}, "doc_id_dict": {"c1e2d476-5abb-428c-ac54-b398fa9ee6b4": ["059a0e12-9b69-4471-9773-23e85625dcea"]}, "embeddings_dict": {}}}}}

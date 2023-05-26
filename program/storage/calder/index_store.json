@@ -1,1 +1,0 @@
-{"index_store/data": {"calder": {"__type__": "vector_store", "__data__": {"index_id": "calder", "summary": null, "nodes_dict": {"0ad4dc06-6f47-4c7e-9365-581d4dd58312": "0ad4dc06-6f47-4c7e-9365-581d4dd58312"}, "doc_id_dict": {"d64868d9-a547-4c45-962e-7365721c82e0": ["0ad4dc06-6f47-4c7e-9365-581d4dd58312"]}, "embeddings_dict": {}}}}}

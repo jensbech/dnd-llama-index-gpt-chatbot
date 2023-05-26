@@ -1,1 +1,0 @@
-{"index_store/data": {"magi": {"__type__": "vector_store", "__data__": {"index_id": "magi", "summary": null, "nodes_dict": {"93c87831-bf80-4bc5-a4f8-f6d2e1cee6a3": "93c87831-bf80-4bc5-a4f8-f6d2e1cee6a3"}, "doc_id_dict": {"06eed3a8-3680-43cf-9460-b2ce33d82998": ["93c87831-bf80-4bc5-a4f8-f6d2e1cee6a3"]}, "embeddings_dict": {}}}}}

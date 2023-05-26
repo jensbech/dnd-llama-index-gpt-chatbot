@@ -1,1 +1,0 @@
-{"index_store/data": {"exp1": {"__type__": "vector_store", "__data__": {"index_id": "exp1", "summary": null, "nodes_dict": {"c49e57cd-ec24-4b97-a80e-eca07d3d029c": "c49e57cd-ec24-4b97-a80e-eca07d3d029c"}, "doc_id_dict": {"199b96ad-370d-4df7-90ef-0af1587e0db9": ["c49e57cd-ec24-4b97-a80e-eca07d3d029c"]}, "embeddings_dict": {}}}}}

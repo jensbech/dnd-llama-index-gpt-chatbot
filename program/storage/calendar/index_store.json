@@ -1,1 +1,0 @@
-{"index_store/data": {"calendar": {"__type__": "vector_store", "__data__": {"index_id": "calendar", "summary": null, "nodes_dict": {"2f1bf104-a925-425e-9d61-b098818c4247": "2f1bf104-a925-425e-9d61-b098818c4247"}, "doc_id_dict": {"b5b903f8-34ee-4706-bd2f-133da355bc37": ["2f1bf104-a925-425e-9d61-b098818c4247"]}, "embeddings_dict": {}}}}}

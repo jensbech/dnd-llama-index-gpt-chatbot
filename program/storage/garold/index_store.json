@@ -1,1 +1,0 @@
-{"index_store/data": {"garold": {"__type__": "vector_store", "__data__": {"index_id": "garold", "summary": null, "nodes_dict": {"2d80e0e5-e171-49c0-ae31-30ef7a1a77d6": "2d80e0e5-e171-49c0-ae31-30ef7a1a77d6"}, "doc_id_dict": {"4e0d4b08-1845-4a9d-891d-ce564a53b7f8": ["2d80e0e5-e171-49c0-ae31-30ef7a1a77d6"]}, "embeddings_dict": {}}}}}

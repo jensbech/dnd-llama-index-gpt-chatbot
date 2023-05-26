@@ -1,1 +1,0 @@
-{"index_store/data": {"languages": {"__type__": "vector_store", "__data__": {"index_id": "languages", "summary": null, "nodes_dict": {"05e31c06-5e50-4912-bee0-108d39f411d3": "05e31c06-5e50-4912-bee0-108d39f411d3"}, "doc_id_dict": {"3d1bf9b6-0072-41c5-85df-b844be1d258e": ["05e31c06-5e50-4912-bee0-108d39f411d3"]}, "embeddings_dict": {}}}}}
