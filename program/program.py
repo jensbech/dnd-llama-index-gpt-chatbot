@@ -21,17 +21,12 @@ import discord
 from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
-import asyncio
 
 context_memory = {}
-max_pairs = 2
-
-
-questions_queue = asyncio.Queue()
+max_pairs = 1
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
-
 
 enable_logging()
 
@@ -39,7 +34,7 @@ with open("file_index.json") as file:
     file_index = json.load(file)
 
 llm = ChatOpenAI(
-    temperature=0.7,
+    temperature=0,
     model_name="gpt-3.5-turbo",
 )
 llm_predictor_chatgpt = LLMPredictor(llm)
@@ -179,16 +174,9 @@ async def ask(message, question: str):
         await message.reply(default_response)
 
 
-async def process_questions():
-    while True:
-        message, question = await questions_queue.get()
-        await ask(message, question)
-        questions_queue.task_done()
-
-
 @bot.event
 async def on_ready():
-    bot.loop.create_task(process_questions())
+    pass
 
 
 @bot.event
@@ -199,7 +187,7 @@ async def on_message(message):
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
         print("Answering question: ", question)
         async with message.channel.typing():
-            await questions_queue.put((message, question))
+            await ask(message, question)
             await bot.process_commands(message)
     else:
         await bot.process_commands(message)
