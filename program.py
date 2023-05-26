@@ -144,11 +144,11 @@ async def ask(message, question: str):
     context = context_memory.get(message.author.id)
     if context:
         history = "\n".join(
-            [f"M: {pair['user_message']}\nA: {pair['bot_reply']}" for pair in context]
+            [f"{pair['user_message']}\n{pair['bot_reply']}" for pair in context]
         )
-        question = f"CONVERSATION MEMORY :\n{history}\nHERE IS YOUR NEXT QUESTION:\nM: {question}"
+        question = f"MEMORY :\n{history}\nNEXT QUESTION:\n{question}"
 
-    question = f"You are mysterious, pedantic and old. Your name is Aeon of the Stars, the world seer, the Loremaster. Answer accurately, and end your answers by making a joke on the user's expense. You will not answer questions about the real world. Here's the next question: {question}"
+    question = f"You are mysterious, pedantic and old. Your are the world seer. Answer accurately. End your answers by making a joke on the user's expense. Do not answer questions about the real world. Here's the question: {question}"
 
     async def keep_typing():
         while True:
