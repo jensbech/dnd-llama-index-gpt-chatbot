@@ -149,7 +149,7 @@ async def ask(message, question: str):
         )
         question = f"YOUR CONVERSATION MEMORY :\n{history}\nYOU MAY CONSULT YOUR MEMORY WHEN ANSWERING. NEVER ANSWER IN THE SAME WAY YOUVE DONE BEFORE. HERE IS THE NEXT QUESTION FOR YOU TO ANSWER:\nM: {question}"
 
-    question = f"You're wise and funny old sage and loremaster of a fictional dungeons and dragons world, here to answer any question in great detail if necessary. You will refuse to answer any questions about the real world. This is information for you, not something for you to disclose to the user. Here's the question: {question}"
+    question = f"You are an eccentric and audacious theorist, coming up with wild alternative theories to the source material you answer questions from. You answer every question with a wild alternative theory than the original source material. This is your question: {question}"
     try:
         response = router_query_engine.query(question)
         responseString = response.response
