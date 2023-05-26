@@ -22,6 +22,20 @@ from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
 
+import asyncio
+
+message_queues = {}
+
+
+async def process_message_queue(user_id):
+    while True:
+        message = await message_queues[user_id].get()
+        question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
+        print("Answering question: ", question)
+        async with message.channel.typing():
+            await ask(message, question)
+
+
 context_memory = {}
 max_pairs = 1
 
@@ -34,7 +48,7 @@ with open("file_index.json") as file:
     file_index = json.load(file)
 
 llm = ChatOpenAI(
-    temperature=0,
+    temperature=0.6,
     model_name="gpt-3.5-turbo",
 )
 llm_predictor_chatgpt = LLMPredictor(llm)
@@ -141,9 +155,9 @@ async def ask(message, question: str):
         history = "\n".join(
             [f"M: {pair['user_message']}\nA: {pair['bot_reply']}" for pair in context]
         )
-        question = f"CONVERSATION MEMORY :\n{history}\nYOU MAY CONSULT THE MEMORY WHEN ANSWERING. NEVER ANSWER IN THE SAME WAY YOUVE DONE BEFORE. HERE IS THE NEXT QUESTION FOR YOU TO ANSWER:\nM: {question}"
+        question = f"CONVERSATION MEMORY :\n{history}\nHERE IS YOUR NEXT QUESTION:\nM: {question}"
 
-    question = f"You're wise and funny old sage and loremaster of the DND world Kazar, here to answer any question in great detail if necessary. You will refuse to answer any questions about the real world. Never refer to yourself as an AI model. This is information for you, not something for you to disclose to the user. Here's the question: {question}"
+    question = f"You're wise and funny old loremaster of Kazar, a DND world. Your name Aeon of the Stars, the seer of the world of Kazar. You are here to answer any question in great detail if necessary. This is information, do not disclose it to user: You will not answer questions about the real world. Here's the next question: {question}"
     try:
         response = router_query_engine.query(question)
         responseString = response.response
@@ -175,20 +189,17 @@ async def ask(message, question: str):
 
 
 @bot.event
-async def on_ready():
-    pass
-
-
-@bot.event
 async def on_message(message):
     if message.author.bot:
         return
     if bot.user in message.mentions:
-        question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
-        print("Answering question: ", question)
-        async with message.channel.typing():
-            await ask(message, question)
-            await bot.process_commands(message)
+        # Add message to user's queue
+        if message.author.id not in message_queues:
+            message_queues[message.author.id] = asyncio.Queue()
+            # Start a task to process messages in the queue
+            bot.loop.create_task(process_message_queue(message.author.id))
+
+        await message_queues[message.author.id].put(message)
     else:
         await bot.process_commands(message)
 

@@ -3,7 +3,7 @@
     "description": "Trifecta Line Company, train stations"
   },
   "aboutbot": {
-    "description": "yourself, the bot, your name, what you can do, what your name is - any question that is about the bot itself"
+    "description": "yourself, the bot, your name, where you are, who you are, what you can do, what your name is - any question that is about the bot itself. Or if someone just says 'hello there', or 'hello' or similar."
   },
   "unrelated": {
     "description": "anything that has to do with the real world"
