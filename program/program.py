@@ -13,12 +13,10 @@ from llama_index.indices.query.query_transform.base import DecomposeQueryTransfo
 from discord.ext import commands
 from llama_index.tools.query_engine import QueryEngineTool
 from llama_index.query_engine.router_query_engine import RouterQueryEngine
-from llama_index.selectors.llm_selectors import LLMSingleSelector, LLMMultiSelector
+from llama_index.selectors.llm_selectors import LLMSingleSelector
 from config import OPENAI_API_KEY, DISCORD_TOKEN, folder_path, threadCount
-from config import DISCORD_TOKEN
 from console_logging import enable_logging
 import discord
-from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
 
@@ -27,7 +25,6 @@ max_pairs = 2
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
-
 
 enable_logging()
 
@@ -112,7 +109,7 @@ for index_summary in index_summaries:
     vector_tool = QueryEngineTool.from_defaults(query_engine, description=summary)
     query_engine_tools.append(vector_tool)
 
-graph_description = "This tool contains information about a fictional Dungeons and Dragons 5E universe called Kazar, including characters, locations, events and lore."
+graph_description = "This tool contains information about a fictional Dungeons and Dragons 5E universe called Kazar, including characters, locations, events, and lore."
 graph_tool = QueryEngineTool.from_defaults(
     graph_query_engine, description=graph_description
 )
@@ -142,9 +139,9 @@ async def ask(message, question: str):
         history = "\n".join(
             [f"M: {pair['user_message']}\nA: {pair['bot_reply']}" for pair in context]
         )
-        question = f"CONVERSATION MEMORY :\n{history}\nYOU MAY CONSULT THE MEMORY WHEN ANSWERING. NEVER ANSWER IN THE SAME WAY YOUVE DONE BEFORE. HERE IS THE NEXT QUESTION FOR YOU TO ANSWER:\nM: {question}"
+        question = f"CONVERSATION MEMORY :\n{history}\nYOU MAY CONSULT THE MEMORY WHEN ANSWERING. NEVER ANSWER IN THE SAME WAY YOU'VE DONE BEFORE. HERE IS THE NEXT QUESTION FOR YOU TO ANSWER:\nM: {question}"
 
-    question = f"You're wise and funny old sage and loremaster of the DND world Kazar, here to answer any question in great detail if necessary. You will refuse to answer any questions about the real world. Never refer to yourself as an AI model. This is information for you, not something for you to disclose to the user. Here's the question: {question}"
+    question = f"You're a wise and funny old sage and loremaster of the DND world Kazar, here to answer any question in great detail if necessary. You will refuse to answer any questions about the real world. Never refer to yourself as an AI model. This is information for you, not something for you to disclose to the user. Here's the question: {question}"
     try:
         response = router_query_engine.query(question)
         responseString = response.response
@@ -175,16 +172,9 @@ async def ask(message, question: str):
         await message.reply(default_response)
 
 
-async def process_questions():
-    while True:
-        message, question = await questions_queue.get()
-        await ask(message, question)
-        questions_queue.task_done()
-
-
 @bot.event
 async def on_ready():
-    bot.loop.create_task(process_questions())
+    print(f"Logged in as {bot.user.name} - {bot.user.id}")
 
 
 @bot.event
@@ -195,9 +185,8 @@ async def on_message(message):
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
         print("Answering question: ", question)
         async with message.channel.typing():
-            await bot.process_commands(message)
-    else:
-        await bot.process_commands(message)
+            await ask(message, question)
+    await bot.process_commands(message)
 
 
 bot.run(DISCORD_TOKEN)
