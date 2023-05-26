@@ -141,7 +141,6 @@ bot.remove_command("help")
 
 
 async def ask(message, question: str):
-    # Adding context_memory to the question.
     context = context_memory.get(message.author.id)
     if context:
         history = "\n".join(
@@ -154,14 +153,12 @@ async def ask(message, question: str):
         response = router_query_engine.query(question)
         responseString = response.response
 
-        # Storing the user message and bot reply to the context_memory.
         if message.author.id not in context_memory:
             context_memory[message.author.id] = []
         context_memory[message.author.id].append(
             {"user_message": message.content, "bot_reply": responseString}
         )
 
-        # Trimming the context_memory if it exceeds max_pairs.
         print("CURRENT CONTEXT MEMORY: ", context_memory[message.author.id])
         if len(context_memory[message.author.id]) > max_pairs:
             context_memory[message.author.id] = context_memory[message.author.id][
