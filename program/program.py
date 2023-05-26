@@ -52,8 +52,8 @@ index_summaries = {}
 
 data_dir = Path(folder_path)
 
-# for md_file in data_dir.glob("**/*.md"):
-# print(md_file) # this prints data file names
+for md_file in data_dir.glob("**/*.md"):
+    print(md_file)  # this prints data file names
 
 print("\033[32mLoading files...\033[0m")
 documents = {}
@@ -77,7 +77,7 @@ for md_file in Path(folder_path).glob("**/*.md"):
         index_summaries[file_name] = (
             "This index contains information about " + metadata["description"]
         )
-        # print(index_summaries[file_name]) # this prints the description of the index
+        print(index_summaries[file_name])
 print("\033[32mLoaded all files!\033[0m")
 
 print("\033[32mBuilding graph and other things...\033[0m")
@@ -88,11 +88,13 @@ graph = ComposableGraph.from_indices(
     [summary for _, summary in index_summaries.items()],
     max_keywords_per_chunk=50,
 )
+print("Defined graph")
 
 decompose_transform = DecomposeQueryTransform(llm_predictor_chatgpt, verbose=True)
 
 custom_query_engines = {}
 for index in vector_indices.values():
+    print("Building a query engine...")
     query_engine = index.as_query_engine(service_context=service_context)
     query_engine = TransformQueryEngine(
         query_engine,
@@ -108,10 +110,12 @@ custom_query_engines[graph.root_id] = graph.root_index.as_query_engine(
 )
 
 graph_query_engine = graph.as_query_engine(custom_query_engines=custom_query_engines)
+print("Set query engines!")
 
 query_engine_tools = []
 
 for index_summary in index_summaries:
+    print("Building vector tool...")
     index = vector_indices[index_summary]
     summary = index_summaries[index_summary]
 
@@ -123,8 +127,10 @@ graph_description = "This tool contains information about a fictional Dungeons a
 graph_tool = QueryEngineTool.from_defaults(
     graph_query_engine, description=graph_description
 )
+print("Got a graph tool")
 query_engine_tools.append(graph_tool)
 
+print("Setting up query engine...")
 router_query_engine = RouterQueryEngine(
     selector=LLMSingleSelector.from_defaults(
         service_context=service_context,
