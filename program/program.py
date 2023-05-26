@@ -21,12 +21,10 @@ import discord
 from discord.ext import commands
 from pathlib import Path
 from llama_index import download_loader
+
 import asyncio
 
-print("\033[32mStarting...\033[0m")
-
 questions_queue = asyncio.Queue()
-
 
 MarkdownReader = download_loader("MarkdownReader")
 loader = MarkdownReader()
@@ -51,16 +49,14 @@ vector_indices = {}
 index_summaries = {}
 
 data_dir = Path(folder_path)
-
 for md_file in data_dir.glob("**/*.md"):
-    print(md_file)  # this prints data file names
+    print(md_file)
 
-print("\033[32mLoading files...\033[0m")
 documents = {}
 for md_file in Path(folder_path).glob("**/*.md"):
-    file_name = md_file.stem  # Get the file name without the extension
-    metadata = file_index.get(file_name)  # Get the metadata from the file index
-    if metadata is not None:  # Check that the file name is in the file index
+    file_name = md_file.stem
+    metadata = file_index.get(file_name)
+    if metadata is not None:
         documents[file_name] = loader.load_data(file=md_file)
 
         storage_context = StorageContext.from_defaults()
@@ -78,9 +74,7 @@ for md_file in Path(folder_path).glob("**/*.md"):
             "This index contains information about " + metadata["description"]
         )
         print(index_summaries[file_name])
-print("\033[32mLoaded all files!\033[0m")
 
-print("\033[32mBuilding graph and other things...\033[0m")
 
 graph = ComposableGraph.from_indices(
     GPTTreeIndex,
@@ -88,13 +82,11 @@ graph = ComposableGraph.from_indices(
     [summary for _, summary in index_summaries.items()],
     max_keywords_per_chunk=50,
 )
-print("Defined graph")
 
 decompose_transform = DecomposeQueryTransform(llm_predictor_chatgpt, verbose=True)
 
 custom_query_engines = {}
 for index in vector_indices.values():
-    print("Building a query engine...")
     query_engine = index.as_query_engine(service_context=service_context)
     query_engine = TransformQueryEngine(
         query_engine,
@@ -110,12 +102,10 @@ custom_query_engines[graph.root_id] = graph.root_index.as_query_engine(
 )
 
 graph_query_engine = graph.as_query_engine(custom_query_engines=custom_query_engines)
-print("Set query engines!")
 
 query_engine_tools = []
 
 for index_summary in index_summaries:
-    print("Building vector tool...")
     index = vector_indices[index_summary]
     summary = index_summaries[index_summary]
 
@@ -127,21 +117,14 @@ graph_description = "This tool contains information about a fictional Dungeons a
 graph_tool = QueryEngineTool.from_defaults(
     graph_query_engine, description=graph_description
 )
-print("Got a graph tool")
 query_engine_tools.append(graph_tool)
 
-print("Setting up query engine...")
 router_query_engine = RouterQueryEngine(
     selector=LLMSingleSelector.from_defaults(
         service_context=service_context,
     ),
     query_engine_tools=query_engine_tools,
 )
-print("\033[32mFinished building graph and other things!\033[0m")
-
-
-print("\033[32mStarting bot...\033[0m")
-
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -165,7 +148,7 @@ def is_direct_question(question):
 
 
 async def ask(message, question: str):
-    question = f"You're wise sage and loremaster of a fictional dungeons and dragons world, happy to answer any question, and you finish all responses in a humourous way. However, you will refuse to answer any questions about the real world. All this is information for you, not necessariliy something you need to disclose. Here's the question: {question}"
+    question = f"You're wise sage and loremaster of a fictional dungeons and dragons world, happy to answer any question, and you finish all responses in a humourous way. However, you will refuse to answer any questions about the real world. All this is information for you, not necessarily something you need to disclose. Here's the question: {question}"
     try:
         response = router_query_engine.query(question)
         responseString = response.response
@@ -173,14 +156,13 @@ async def ask(message, question: str):
     except ValueError as e:
         print(f"Caught an error: {e}")
         default_response = "I'm sorry, I don't have information on that topic..."
-        print("Responding with 'I'm sorry, I don't have information on that topic...'")
+        print("Responding with: " + default_response)
         await message.reply(default_response)
 
 
 async def process_questions():
     while True:
         message, question = await questions_queue.get()
-        print("asking question:", question)
         await ask(message, question)
         questions_queue.task_done()
 
@@ -196,10 +178,12 @@ async def on_message(message):
         return
     if bot.user in message.mentions:
         question = message.content.replace(f"<@!{bot.user.id}>", "").strip()
-        await questions_queue.put((message, question))
+        print("Answering question: ", question)
+        async with message.channel.typing():  # Trigger typing status
+            await questions_queue.put((message, question))
+            await bot.process_commands(message)
+    else:
+        await bot.process_commands(message)
 
-    await bot.process_commands(message)
 
-
-print("\033[32mBot ready!\033[0m")
 bot.run(DISCORD_TOKEN)
