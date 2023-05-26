@@ -55,6 +55,7 @@ data_dir = Path(folder_path)
 # for md_file in data_dir.glob("**/*.md"):
 # print(md_file) # this prints data file names
 
+print("Loading files...")
 documents = {}
 for md_file in Path(folder_path).glob("**/*.md"):
     file_name = md_file.stem  # Get the file name without the extension
@@ -77,7 +78,9 @@ for md_file in Path(folder_path).glob("**/*.md"):
             "This index contains information about " + metadata["description"]
         )
         # print(index_summaries[file_name]) # this prints the description of the index
-print("Loaded all files...")
+print("Loaded all files!")
+
+print("Building graph and other things...")
 
 graph = ComposableGraph.from_indices(
     GPTTreeIndex,
@@ -128,6 +131,7 @@ router_query_engine = RouterQueryEngine(
     ),
     query_engine_tools=query_engine_tools,
 )
+print("Finished building graph and other things!")
 
 print("Starting bot...")
 
@@ -189,4 +193,5 @@ async def on_message(message):
     await bot.process_commands(message)
 
 
+print("Bot ready to go!")
 bot.run(DISCORD_TOKEN)
