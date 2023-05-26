@@ -25,12 +25,6 @@ import asyncio
 
 message_queues = {}
 
-context_memory = {}
-max_pairs = 0
-
-MarkdownReader = download_loader("MarkdownReader")
-loader = MarkdownReader()
-
 enable_logging()
 
 with open("file_index.json") as file:
@@ -141,13 +135,6 @@ bot.remove_command("help")
 import concurrent.futures
 
 async def ask(message, question: str):
-    context = context_memory.get(message.author.id)
-    if context:
-        history = "\n".join(
-            [f"{pair['user_message']}\n{pair['bot_reply']}" for pair in context]
-        )
-        question = f"MEMORY :\n{history}\nNEXT QUESTION:\n{question}"
-
     question = f"You are an eccentric and state-critical theorist, coming up with wild alternative theories to order of things and government. You answer every question with a wild theory about something in Kazar. This is your question: {question}"
 
     async def keep_typing():
@@ -160,22 +147,9 @@ async def ask(message, question: str):
     loop = asyncio.get_event_loop()
 
     try:
-        # Use loop.run_in_executor() to run blocking operation in a separate thread
         response = await loop.run_in_executor(None, router_query_engine.query, question)
         responseString = response.response
         typing_task.cancel()
-
-        if message.author.id not in context_memory:
-            context_memory[message.author.id] = []
-        context_memory[message.author.id].append(
-            {"user_message": message.content, "bot_reply": responseString}
-        )
-
-        print("CURRENT CONTEXT MEMORY: ", context_memory[message.author.id])
-        if len(context_memory[message.author.id]) > max_pairs:
-            context_memory[message.author.id] = context_memory[message.author.id][
-                -max_pairs:
-            ]
 
         responseString = (
             responseString[3:] if responseString.startswith("A: ") else responseString
@@ -206,10 +180,8 @@ async def on_message(message):
     if message.author.bot:
         return
     if bot.user in message.mentions:
-        # Add message to user's queue
         if message.author.id not in message_queues:
             message_queues[message.author.id] = asyncio.Queue()
-            # Start a task to process messages in the queue
             bot.loop.create_task(process_message_queue(message.author.id))
 
         await message_queues[message.author.id].put(message)
