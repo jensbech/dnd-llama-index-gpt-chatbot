@@ -170,7 +170,7 @@
   "puff": {
     "description": "Puff"
   },
-  "othernpcs": {
+  "_othernpcs": {
     "description": "The Blossom Queen, Quen Carellon, Motep, High priest Qaleq, Vondur Hrakk, Dimra Hrakk, King Hrakk, Yurret, Vic, Gregan Stevey, Delight, Trixie Lawanana, Red Wolf"
   },
   "rondo": {
@@ -179,7 +179,7 @@
   "steamsingers": {
     "description": "Steam singers"
   },
-  "otherfacetions": {
+  "_otherfactions": {
     "description": "The Kin Court, Keepers of the Arc, The Northbound Armed Engineering School, The Trifectian Naval Forces"
   },
   "clues": {
