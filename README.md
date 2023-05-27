@@ -33,6 +33,9 @@ To get started with the bot, follow these steps:
 3. Set up your `file_index.json` and `.md` files in the appropriate directories
 4. Provide your `DISCORD_TOKEN` and `OPENAI_API_KEY` in a `.env` file
 5. Run the bot
+6. Host it on your Rasperry Pi or somewhere else.
+7. ???
+8. Profit
 
 Note: Ensure your Markdown files are correctly formatted, and your `file_index.json` contains relevant metadata for each file.
 
