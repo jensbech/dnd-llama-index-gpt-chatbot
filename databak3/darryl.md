@@ -1,4 +1,0 @@
-# The Watcher
-Darryl Cede
-Once every week, for only a few hours, the blueish fog recedes from the valleys of Stormfyord, allowing brave adventurers to venture forth on an Expedition. Essential to this operation is The Watcher. A half-elf in his mid-thirties, he goes by the name of Darryl Cede. A dour man of few words, his eyeless face terribly scarred. Often seen standing on the northern wall, he can tell hours in advance when the path will open. And when the fog begins to seep back into the vale he sounds the Deephorn, calling any still alive home.
-Essential to scheduling Expeditions, ensuring safe travel in Stormfyord.

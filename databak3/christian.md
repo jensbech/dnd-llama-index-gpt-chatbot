@@ -1,2 +1,0 @@
-# Christian Baal
-Christian Baal is a high-up in the Trifecta, who is involved in the corruption and sabotage of the transportation line. The group discovers that the Trifecta soldiers and workers at the forest camp are there on Christian Baal's orders. They find evidence of the operation in a logbook and fight against Roland and his crew, who were following Christian Baal's orders. Valentin volunteers to bring evidence of the operation to the Trifecta.

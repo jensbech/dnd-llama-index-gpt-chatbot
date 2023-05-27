@@ -1,3 +1,0 @@
-# Glory
-Asides from the Watcher, no-one holds a higher status than the Keeper of Chronicles. A young tiefling said to have escaped persecution in Vergwenwell, Glory is a savant, capable of reciting every single word she has read in her life. She is entrusted with compiling and safe-guarding all chronicles written by the Expeditions, reporting their findings to the Trifecta.
-Reads and stores all knowledge, ensures the Chronicler is paid 50 gold for every report.
