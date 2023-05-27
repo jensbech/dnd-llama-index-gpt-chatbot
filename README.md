@@ -36,4 +36,4 @@ To get started with the bot, follow these steps:
 
 Note: Ensure your Markdown files are correctly formatted, and your `file_index.json` contains relevant metadata for each file.
 
-For those who prefer a more skeptical take on the campaign universe, check out the separate branch featuring a bot with a "conspiracy theorist" personality. Detailed instructions on the setup and use of the bot will be provided in the repository's wiki.
+For those who prefer a more skeptical take on the campaign universe, check out the separate branch featuring a bot with a "conspiracy theorist" personality.
