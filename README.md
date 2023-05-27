@@ -33,7 +33,7 @@ To get started with the bot, follow these steps:
 3. Set up your `file_index.json` and `.md` files in the appropriate directories
 4. Provide your `DISCORD_TOKEN` and `OPENAI_API_KEY` in a `.env` file
 5. Run the bot
-6. Host it on your Rasperry Pi or somewhere else.
+6. Host it on your Raspberry Pi or somewhere else.
 7. ???
 8. Profit
 
