@@ -3,9 +3,6 @@ Readme written by GPT4.
 
 This repository hosts a Discord bot designed to serve as a custom knowledge database for your Dungeons and Dragons (D&D) campaign. The bot, leveraging the capabilities of OpenAI's language model, GPT-3.5-turbo, offers real-time interaction with the dataaset.
 
-Example usage:
-![image](https://github.com/jensbech/dnd-llama-index-gpt-chatbot/assets/8881797/ec976b36-7532-4038-a68a-ce8f8b47d7e4)
-
 The chatbot utilizes llama-index, a feature-rich machine learning library that provides utilities for indexing and querying datasets. The bot leverages this functionality to create a queryable index from a Markdown-based wiki representing your DnD campaign universe.
 
 ## What Does This Code Do?
@@ -21,6 +18,9 @@ Importantly, all this occurs asynchronously with Discord, allowing the bot to si
 This bot aims to bridge the gap between static campaign wikis and real-time player interactions. Instead of players referring to the campaign wiki or the Game Master (GM) for context, this bot answers questions about the campaign universe dynamically, offering a depth of knowledge and context-aware humour that's expected from a GM.
 
 For a better user experience, the bot has a specific personality: it's designed to be mysterious, pedacious, and old, like a world seer. Additionally, it ends each answer with a context-relevant joke or fun comment. This helps to elevate the bot beyond a simple query tool, enabling it to play a character role in the campaign itself.
+
+Example usage:
+![image](https://github.com/jensbech/dnd-llama-index-gpt-chatbot/assets/8881797/0916cf08-cf19-4f8e-93ee-3f2beccecbda)
 
 ## Getting Started
 
